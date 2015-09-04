@@ -9,18 +9,19 @@ public class Codeforces_round_295_div_2_TwoButtons {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         int m = input.nextInt();
-        Queue<int[]> eventList = new LinkedList<int[]>();
+        Queue<int[]> eventList = new LinkedList<>();
         Set<Integer> visited = new HashSet<>();
         int[] init = {n, 0};
         eventList.add(init);
-        checkLoop:
-        while(!eventList.isEmpty()) {
+        boolean escape = false;
+        while(!eventList.isEmpty() && !escape) {
             int[] check = eventList.poll();
             if (!visited.contains(check[0])) {
                 visited.add(check[0]);
                 if (check[0] == m) {
                     System.out.println(check[1]);
-                    break checkLoop;
+                    escape = true;
+                    continue;
                 }
                 int[] first = {check[0] - 1, check[1] + 1};
                 int[] second = {check[0] * 2, check[1] + 1};

@@ -56,7 +56,7 @@ public class Codeforces_round_20_C_Dijkstra {
 
         }
 
-        PriorityQueue<Node> path = new PriorityQueue<>(vertices, new Comparator<Node>() {
+        PriorityQueue<Node> path = new PriorityQueue<Node>(vertices, new Comparator<Node>() {
             @Override
             public int compare(Node o1, Node o2) {
                 return o1.totalCost - o2.totalCost;
@@ -73,7 +73,7 @@ public class Codeforces_round_20_C_Dijkstra {
             if(current.id == nodes.size() - 1) {
                 isFound = true;
                 int index = current.id;
-                List<Integer> out = new ArrayList<>();
+                List<Integer> out = new ArrayList<Integer>();
                 while(index != 0) {
                     out.add(index);
                     index = finalPath[index];
@@ -116,6 +116,6 @@ class Node {
         this.id = id;
         this.totalCost = totalCost;
         this.visited = visit;
-        neighbors = new HashMap<>();
+        neighbors = new HashMap<Integer, Integer>();
     }
 }

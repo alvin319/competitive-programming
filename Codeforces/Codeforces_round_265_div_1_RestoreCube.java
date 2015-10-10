@@ -9,7 +9,7 @@ public class Codeforces_round_265_div_1_RestoreCube {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Vertex> list = new ArrayList<>();
+        ArrayList<Vertex> list = new ArrayList<Vertex>();
         for(int i = 0; i < 8; i++) {
             list.add(new Vertex(input.nextInt(), input.nextInt(), input.nextInt()));
         }

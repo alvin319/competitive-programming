@@ -9,7 +9,7 @@ public class Codeforces_round_103_div_2_MissileSilos {
         int cities = input.nextInt();
         int roads = input.nextInt();
         int capital = input.nextInt();
-        ArrayList<City> nodes = new ArrayList<>();
+        ArrayList<City> nodes = new ArrayList<City>();
         HashSet<Integer> nodeList = new HashSet();
         for (int i = 0; i < cities; i++) {
             nodes.add(new City(i, Integer.MAX_VALUE));
@@ -46,7 +46,7 @@ public class Codeforces_round_103_div_2_MissileSilos {
 //        }
         int capitalDistance = input.nextInt();
         int answer = 0;
-        PriorityQueue<City> queue = new PriorityQueue<>(cities, new Comparator<City>() {
+        PriorityQueue<City> queue = new PriorityQueue<City>(cities, new Comparator<City>() {
             @Override
             public int compare(City o1, City o2) {
                 return o1.totalCost - o2.totalCost;
@@ -99,7 +99,7 @@ class City {
     public City(int id, int totalCost) {
         this.id = id;
         this.totalCost = totalCost;
-        edges = new HashMap<>();
+        edges = new HashMap<Integer, Integer>();
         visited = false;
     }
 }

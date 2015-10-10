@@ -9,8 +9,8 @@ public class Codeforces_round_295_div_2_TwoButtons {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         int m = input.nextInt();
-        Queue<int[]> eventList = new LinkedList<>();
-        Set<Integer> visited = new HashSet<>();
+        Queue<int[]> eventList = new LinkedList<int[]>();
+        Set<Integer> visited = new HashSet<Integer>();
         int[] init = {n, 0};
         eventList.add(init);
         boolean escape = false;

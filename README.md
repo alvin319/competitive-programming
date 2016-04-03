@@ -1,6 +1,12 @@
 # Competitive Programming Solutions
 
-- Codeforces problems
-- Texas UIL problems
-- /r/dailyprogrammer from Reddit problems
-- Miscellaneous coding problems
+Cateogires
+- Codeforces
+- Texas UIL
+- /r/dailyprogrammer
+- UT ACM
+- Miscellaneous
+
+Languages
+- Java
+- C++

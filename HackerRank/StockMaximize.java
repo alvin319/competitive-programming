@@ -13,15 +13,17 @@ public class StockMaximize {
             for (int j = 0; j < stock.length; j++) {
                 stock[j] = input.nextLong();
             }
+
             long totalProfit = 0;
-            for (int j = 0; j < stock.length; j++) {
-                long maxProfit = 0;
-                for (int k = j; k < stock.length; k++) {
-                    long currentProfit = stock[k] - stock[j];
-                    maxProfit = Math.max(currentProfit, maxProfit);
+            long last = stock[stock.length - 1];
+
+            for(int j = stock.length - 1; j >= 0; j--){
+                if(stock[j] > last) {
+                    last = stock[j];
                 }
-                totalProfit += maxProfit;
+                totalProfit += last - stock[j];
             }
+
             System.out.println(totalProfit);
         }
     }

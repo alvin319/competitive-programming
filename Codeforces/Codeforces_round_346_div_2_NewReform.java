@@ -33,7 +33,7 @@ public class Codeforces_round_346_div_2_NewReform {
                 nodeCount = 0;
                 DFS(x);
                 // 2(n - 1) = number of edges because we are double counting
-                if((2 * nodeCount) == (edgeCount + 2)) {
+                if((2 * (nodeCount - 1)) == edgeCount) {
                     overall++;
                 }
             }

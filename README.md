@@ -7,6 +7,7 @@ Cateogires
 - UT ACM
 - Miscellaneous
 - HackerRank
+- Google CodeJam
 
 Languages
 - Java

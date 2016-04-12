@@ -1,13 +1,13 @@
-# Competitive Programming Solutions
+# Competitive Programming
 
-Cateogires
+Problem Cateogires
 - Codeforces
 - Texas UIL
-- /r/dailyprogrammer
-- UT ACM
-- Miscellaneous
+- Dailyprogrammer from Reddit
+- UT Austin ACM Contests
 - HackerRank
 - Google CodeJam
+- Miscellaneous Problem
 
 Languages
 - Java
@@ -22,4 +22,5 @@ Languages
 | O(N^3)               | 100                | Floyd Warshall                   |
 | O(N^4)               | 50                 | DP with 3 dimensions + O(n) loop |
 | O(2^N), O(N^5)       | 20                 | DP/Bitmask Technique             |
+| O(2^N N^2)           | 15                 | DP Travelling Salesman Problem   |
 | O(N!), O(N^6)        | 10                 | Enumerating a Permutation        |

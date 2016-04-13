@@ -12,6 +12,7 @@ Problem Cateogires
 Languages
 - Java
 - C++
+- Python
 
 # Big-O Analysis
 | Complexity           | Maximum Input Size | Comments                         |

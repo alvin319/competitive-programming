@@ -45,25 +45,26 @@ public class Codeforces_round_345_div_1_Watchman {
         }
         System.out.println(summation);
     }
+
+    static class Point {
+        long x;
+        long y;
+
+        public Point(long x, long y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public int hashCode() {
+            return (int)(x * 10 + y);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            Point compare = (Point)obj;
+            return this.x == compare.x && this.y == compare.y;
+        }
+    }
 }
 
-class Point {
-    long x;
-    long y;
-
-    public Point(long x, long y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int)(x * 10 + y);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Point compare = (Point)obj;
-        return this.x == compare.x && this.y == compare.y;
-    }
-}

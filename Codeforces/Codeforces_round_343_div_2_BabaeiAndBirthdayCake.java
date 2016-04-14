@@ -34,54 +34,54 @@ public class Codeforces_round_343_div_2_BabaeiAndBirthdayCake {
         }
         System.out.println(Math.PI * solution);
     }
-}
 
-class SegmentTree {
+    static class SegmentTree {
 
-    private double tree[];
-    int treeSize;
+        private double tree[];
+        int treeSize;
 
-    public SegmentTree(int n) {
-        tree = new double[4 * n];
-        this.treeSize = n;
-    }
-
-    public void update(int index, double value) {
-        constructTree(0, treeSize - 1, 0, index, value);
-    }
-
-    public void constructTree(int startIndex, int endIndex, int currentIndex, int destinationIndex, double value) {
-        if(startIndex == endIndex) {
-            tree[currentIndex] = value;
-            return;
+        public SegmentTree(int n) {
+            tree = new double[4 * n];
+            this.treeSize = n;
         }
-        int midIndex = (startIndex + endIndex) >> 1;
-        int leftChildIndex = 2 * currentIndex + 1;
-        int rightChildIndex = 2 * currentIndex + 2;
-        if(destinationIndex <= midIndex) {
-            constructTree(startIndex, midIndex, leftChildIndex, destinationIndex, value);
-        } else {
-            constructTree(midIndex + 1, endIndex, rightChildIndex, destinationIndex, value);
-        }
-        tree[currentIndex] = Math.max(tree[2 * currentIndex + 1], tree[2 * currentIndex + 2]);
-    }
 
-    public double query(int startRange, int endRange) {
-        return get(0, treeSize - 1, 0, startRange, endRange);
-    }
+        public void update(int index, double value) {
+            constructTree(0, treeSize - 1, 0, index, value);
+        }
 
-    public double get(int nodeStart, int nodeEnd, int currentIndex, int startRange, int endRange) {
-        if (nodeStart == startRange && nodeEnd == endRange) {
-            return tree[currentIndex];
+        public void constructTree(int startIndex, int endIndex, int currentIndex, int destinationIndex, double value) {
+            if(startIndex == endIndex) {
+                tree[currentIndex] = value;
+                return;
+            }
+            int midIndex = (startIndex + endIndex) >> 1;
+            int leftChildIndex = 2 * currentIndex + 1;
+            int rightChildIndex = 2 * currentIndex + 2;
+            if(destinationIndex <= midIndex) {
+                constructTree(startIndex, midIndex, leftChildIndex, destinationIndex, value);
+            } else {
+                constructTree(midIndex + 1, endIndex, rightChildIndex, destinationIndex, value);
+            }
+            tree[currentIndex] = Math.max(tree[2 * currentIndex + 1], tree[2 * currentIndex + 2]);
         }
-        int midIndex = (nodeStart + nodeEnd) >> 1;
 
-        if(endRange <= midIndex) {
-            return get(nodeStart, midIndex, 2 * currentIndex + 1, startRange, endRange);
+        public double query(int startRange, int endRange) {
+            return get(0, treeSize - 1, 0, startRange, endRange);
         }
-        if(startRange > midIndex) {
-            return get(midIndex + 1, nodeEnd, 2 * currentIndex + 2, startRange, endRange);
+
+        public double get(int nodeStart, int nodeEnd, int currentIndex, int startRange, int endRange) {
+            if (nodeStart == startRange && nodeEnd == endRange) {
+                return tree[currentIndex];
+            }
+            int midIndex = (nodeStart + nodeEnd) >> 1;
+
+            if(endRange <= midIndex) {
+                return get(nodeStart, midIndex, 2 * currentIndex + 1, startRange, endRange);
+            }
+            if(startRange > midIndex) {
+                return get(midIndex + 1, nodeEnd, 2 * currentIndex + 2, startRange, endRange);
+            }
+            return Math.max(get(nodeStart, midIndex, 2 * currentIndex + 1, startRange, midIndex), get(midIndex + 1, nodeEnd, 2 * currentIndex + 2, midIndex + 1, endRange));
         }
-        return Math.max(get(nodeStart, midIndex, 2 * currentIndex + 1, startRange, midIndex), get(midIndex + 1, nodeEnd, 2 * currentIndex + 2, midIndex + 1, endRange));
     }
 }

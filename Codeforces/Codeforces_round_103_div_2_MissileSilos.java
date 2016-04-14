@@ -87,19 +87,19 @@ public class Codeforces_round_103_div_2_MissileSilos {
         }
         System.out.println(answer);
     }
-}
 
+    static class City {
+        int id;
+        int totalCost;
+        boolean visited;
+        HashMap<Integer, Integer> edges;
 
-class City {
-    int id;
-    int totalCost;
-    boolean visited;
-    HashMap<Integer, Integer> edges;
-
-    public City(int id, int totalCost) {
-        this.id = id;
-        this.totalCost = totalCost;
-        edges = new HashMap<Integer, Integer>();
-        visited = false;
+        public City(int id, int totalCost) {
+            this.id = id;
+            this.totalCost = totalCost;
+            edges = new HashMap<Integer, Integer>();
+            visited = false;
+        }
     }
 }
+

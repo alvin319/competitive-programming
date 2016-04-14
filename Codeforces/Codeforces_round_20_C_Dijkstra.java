@@ -104,18 +104,18 @@ public class Codeforces_round_20_C_Dijkstra {
             System.out.println(-1);
 
     }
-}
 
-class Node {
-    int id;
-    int totalCost;
-    boolean visited;
-    HashMap<Integer, Integer> neighbors;
+    static class Node {
+        int id;
+        int totalCost;
+        boolean visited;
+        HashMap<Integer, Integer> neighbors;
 
-    public Node(int totalCost, boolean visit, int id) {
-        this.id = id;
-        this.totalCost = totalCost;
-        this.visited = visit;
-        neighbors = new HashMap<Integer, Integer>();
+        public Node(int totalCost, boolean visit, int id) {
+            this.id = id;
+            this.totalCost = totalCost;
+            this.visited = visit;
+            neighbors = new HashMap<Integer, Integer>();
+        }
     }
 }

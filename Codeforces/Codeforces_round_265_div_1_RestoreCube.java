@@ -99,23 +99,23 @@ public class Codeforces_round_265_div_1_RestoreCube {
         }
         return true;
     }
-}
 
-class Vertex {
-    int x;
-    int y;
-    int z;
+    static class Vertex {
+        int x;
+        int y;
+        int z;
 
-    public Vertex(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
+        public Vertex(int x, int y, int z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
 
-    public long diff(Vertex o) {
-        long xDiff = (long)(o.x-x)*(o.x-x);
-        long yDiff = (long)(o.y-y)*(o.y-y);
-        long zDiff = (long)(o.z-z)*(o.z-z);
-        return xDiff + yDiff + zDiff;
+        public long diff(Vertex o) {
+            long xDiff = (long)(o.x-x)*(o.x-x);
+            long yDiff = (long)(o.y-y)*(o.y-y);
+            long zDiff = (long)(o.z-z)*(o.z-z);
+            return xDiff + yDiff + zDiff;
+        }
     }
 }

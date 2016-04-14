@@ -47,12 +47,12 @@ public class Codeforces_VKCup_2016_round_1_BearAndDisplayedFriends {
             }
         }
     }
-}
 
-class Friend {
-    int id;
+    static class Friend {
+        int id;
 
-    public Friend(int id) {
-        this.id = id;
+        public Friend(int id) {
+            this.id = id;
+        }
     }
 }

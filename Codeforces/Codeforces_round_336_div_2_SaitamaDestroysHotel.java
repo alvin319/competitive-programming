@@ -1,27 +1,51 @@
 import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
- * Created by WiNDWAY on 4/13/16.
+ * Created by Alvin on 4/13/2016.
  */
-public class Codeforces_Educational_round_8_NewSkateboard {
+public class Codeforces_round_336_div_2_SaitamaDestroysHotel {
     public static void main(String[] args) throws IOException {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
-        String current = input.nextLine();
+        int n = input.nextInt();
+        int starting = input.nextInt();
+        Passenger[] list = new Passenger[n];
+        for (int i = 0; i < list.length; i++) {
+            list[i] = new Passenger(input.nextInt(), input.nextInt());
+        }
+        Arrays.sort(list, new Comparator<Passenger>() {
+            @Override
+            public int compare(Passenger o1, Passenger o2) {
+                return -1 * new Integer(o1.floor).compareTo(o2.floor);
+            }
+        });
         long total = 0;
-        total += (int)current.charAt(0) % 4 == 0 ? 1 : 0;
-        for (int i = 1; i < current.length(); i++) {
-            int now = (int)current.charAt(i) - 48;
-            total += now % 4 == 0 ? 1 : 0;
-            now += (10 * (((int)current.charAt(i - 1)) - 48));
-            if(now % 4 == 0) {
-                total += (i - 1);
-                total += 1;
+        for (int i = 0; i < list.length; i++) {
+            Passenger current = list[i];
+            if(starting > current.floor) {
+                total += starting - current.floor;
+                starting = current.floor;
+            }
+            if(total < current.wait) {
+                total += current.wait - total;
             }
         }
+        total += starting;
         System.out.println(total);
         out.close();
+    }
+
+    static class Passenger {
+        int floor;
+        int wait;
+
+        public Passenger(int floor, int wait) {
+            this.floor = floor;
+            this.wait = wait;
+        }
     }
 
     public static PrintWriter out;

@@ -53,21 +53,20 @@ public class Codeforces_round_189_div_2_PingPong {
             }
         }
     }
-}
 
-class Number {
+    static class Number {
+        int begin;
+        int end;
 
-    int begin;
-    int end;
+        public Number(int x, int y) {
+            begin = x;
+            end = y;
+        }
 
-    public Number(int x, int y) {
-        begin = x;
-        end = y;
+        public boolean equals(Object n1) {
+            Number n = (Number) n1;
+            return begin == n.begin && end == n.end;
+        }
+
     }
-
-    public boolean equals(Object n1) {
-        Number n = (Number) n1;
-        return begin == n.begin && end == n.end;
-    }
-
 }

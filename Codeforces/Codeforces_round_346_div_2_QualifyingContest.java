@@ -56,20 +56,20 @@ public class Codeforces_round_346_div_2_QualifyingContest {
             }
         }
     }
-}
 
-class Person {
-    String name;
-    int score;
-    int region;
+    static class Person {
+        String name;
+        int score;
+        int region;
 
-    public Person(String name, int region, int score) {
-        this.name = name;
-        this.region = region;
-        this.score = score;
-    }
+        public Person(String name, int region, int score) {
+            this.name = name;
+            this.region = region;
+            this.score = score;
+        }
 
-    public String toString() {
-        return name;
+        public String toString() {
+            return name;
+        }
     }
 }

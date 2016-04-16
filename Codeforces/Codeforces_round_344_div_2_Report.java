@@ -1,4 +1,6 @@
-import java.util.*;
+import java.io.*;
+import java.util.StringTokenizer;
+import java.util.Arrays;
 
 /**
  * Created by WiNDWAY on 4/11/16.
@@ -6,43 +8,101 @@ import java.util.*;
 
 public class Codeforces_round_344_div_2_Report {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        int m = input.nextInt();
-        ArrayList<Long> commodities = new ArrayList<>();
+        FScanner in = new FScanner();
+        out = new PrintWriter(new BufferedOutputStream(System.out), true);
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[] a = new int[n];
+        int[] r = new int[m];
+        int[] t = new int[m];
+        int[] suffixR = new int[m + 1];
+        suffixR[m] = -1;
+
         for (int i = 0; i < n; i++) {
-            commodities.add(input.nextLong());
+            a[i] = in.nextInt();
         }
-        int[] orders = new int[m];
-        int[] ranges = new int[m];
-        LinkedList<Integer> peaks = new LinkedList<>();
+
         for (int i = 0; i < m; i++) {
-            orders[i] = input.nextInt();
-            ranges[i] = input.nextInt();
+            t[i] = in.nextInt();
+            r[i] = in.nextInt() - 1;
         }
-        int currentIndex = m - 1;
-        peaks.addFirst(currentIndex);
-        int seenRange = ranges[currentIndex];
-        currentIndex--;
-        while(currentIndex >= 0) {
-            int currentRange = ranges[currentIndex];
-            if(currentRange > seenRange) {
-                peaks.addFirst(currentIndex);
-                seenRange = currentRange;
-            }
-            currentIndex--;
+
+        for (int i = m - 1; i >= 0; i--) {
+            suffixR[i] = Math.max(suffixR[i + 1], r[i]);
         }
-        for(int index : peaks) {
-            int currentOrder = orders[index];
-            int currentRange = ranges[index];
-            if(currentOrder == 1) {
-                Collections.sort(commodities.subList(0, currentRange));
+
+        int[] b = new int[suffixR[0] + 1];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = a[i];
+        }
+
+        Arrays.sort(b);
+        int left = 0;
+        int right = b.length - 1;
+
+        for (int i = 0; i < m; i++) {
+            if (r[i] <= suffixR[i + 1]) {
+                continue;
+            } else if (t[i] == 1) {
+                for (int k = r[i]; k > suffixR[i + 1]; k--) {
+                    a[k] = b[right];
+                    right--;
+                }
             } else {
-                Collections.sort(commodities.subList(0, currentRange), Collections.reverseOrder());
+                for (int k = r[i]; k > suffixR[i + 1]; k--) {
+                    a[k] = b[left];
+                    left++;
+                }
             }
         }
-        for(long x : commodities) {
-            System.out.print(x + " ");
+
+        for (int i = 0; i < n; i++) {
+            out.print(a[i] + " ");
+        }
+        out.close();
+    }
+
+    public static PrintWriter out;
+
+    public static class FScanner {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FScanner() {
+            br = new BufferedReader(new InputStreamReader(System.in));
+        }
+
+        private String next() {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        public int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        public long nextLong() {
+            return Long.parseLong(next());
+        }
+
+        public double nextDouble() {
+            return Double.parseDouble(next());
+        }
+
+        public String nextLine() {
+            String str = "";
+            try {
+                str = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
         }
     }
 }

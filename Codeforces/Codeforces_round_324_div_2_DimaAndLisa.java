@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * Created by WiNDWAY on 4/18/16.
@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 public class Codeforces_round_324_div_2_DimaAndLisa {
 
-    public static TreeSet<Integer> set = new TreeSet<>();
+    public static HashSet<Integer> set = new HashSet<>();
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
@@ -20,26 +20,17 @@ public class Codeforces_round_324_div_2_DimaAndLisa {
             System.exit(0);
         }
         sieve(n / 2);
-        System.out.println("last: " + set.last());
         for(int x : set) {
-            for(int y : set) {
-                if((x + y) == n) {
-                    out.println(2);
-                    out.println(x + " " + y);
-                    System.exit(0);
-                }
-                int remain = n - x - y;
-                if(remain == x || remain == y) {
-                    out.println(3);
-                    out.println(remain + " " + x + " " + y);
-                    System.exit(0);
-                }
-                if(set.contains(remain)) {
-                    out.println(3);
-                    out.println(remain + " " + x + " " + y);
-                    System.exit(0);
-                }
-
+            int remain = n - x;
+            if(remain == x) {
+                out.println(2);
+                out.println(remain + " " + x);
+                System.exit(0);
+            }
+            if(set.contains(remain)) {
+                out.println(2);
+                out.println(remain + " " + x);
+                System.exit(0);
             }
         }
         out.close();

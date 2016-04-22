@@ -19,18 +19,27 @@ public class Codeforces_round_324_div_2_DimaAndLisa {
             out.println(n);
             System.exit(0);
         }
-        sieve(n / 2);
-        for(int x : set) {
-            int remain = n - x;
-            if(remain == x) {
-                out.println(2);
-                out.println(remain + " " + x);
-                System.exit(0);
+        sieve();
+        int biggestPrime = 0;
+        for (int i = n; i >= 2; i--) {
+            if(isPrime(i)) {
+                biggestPrime = i;
+                break;
             }
-            if(set.contains(remain)) {
-                out.println(2);
-                out.println(remain + " " + x);
-                System.exit(0);
+        }
+        int result = n - biggestPrime;
+        if(set.contains(result)) {
+            System.out.println(2);
+            System.out.println(result + " " + biggestPrime);
+            System.exit(0);
+        } else {
+            for(int x : set) {
+                int lastResult = result - x;
+                if(set.contains(lastResult)) {
+                    System.out.println(3);
+                    System.out.println(biggestPrime + " " + lastResult + " " + x);
+                    System.exit(0);
+                }
             }
         }
         out.close();
@@ -56,19 +65,19 @@ public class Codeforces_round_324_div_2_DimaAndLisa {
         return true;
     }
 
-    public static void sieve(int n) {
-        boolean prime[] = new boolean[n + 1];
+    public static void sieve() {
+        boolean prime[] = new boolean[400];
         Arrays.fill(prime, true);
 
-        for (int p = 2; p * p <= n; p++) {
+        for (int p = 2; p * p < prime.length; p++) {
             if (prime[p]) {
-                for (int i = p * 2; i <= n; i += p) {
+                for (int i = p * 2; i < prime.length; i += p) {
                     prime[i] = false;
                 }
             }
         }
 
-        for (int p = 2; p <= n; p++) {
+        for (int p = 2; p < prime.length; p++) {
             if (prime[p]) {
                 set.add(p);
             }

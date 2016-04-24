@@ -12,19 +12,17 @@ public class Codeforces_GoodBye_2015_NewYearAndOldProperty {
         long a = input.nextLong();
         long b = input.nextLong();
         long answer = 0;
-        for (long i = a; i <= b; i++) {
-            answer += getZero(Long.toBinaryString(i));
+        for (int i = 1; i < 62; i++) {
+            long n = (1L << i) - 1;
+            for (int j = 0; j < i - 1; j++) {
+                long t = n ^ (1L << j);
+                if (t >= a && t <= b) {
+                    answer++;
+                }
+            }
         }
         out.println(answer);
         out.close();
-    }
-
-    public static long getZero(String i) {
-        for (int j = 0; j < i.length(); j++) {
-            if(i.charAt(j) == '0')
-                return 0;
-        }
-        return 0;
     }
 
     public static PrintWriter out;

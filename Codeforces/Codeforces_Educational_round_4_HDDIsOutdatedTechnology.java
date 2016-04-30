@@ -1,36 +1,32 @@
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
- * Created by Alvin on 4/7/2016.
+ * Created by WiNDWAY on 4/30/16.
  */
-public class Codeforces_VKCup_2016_round_1_ChatOrder {
+
+public class Codeforces_Educational_round_4_HDDIsOutdatedTechnology {
+
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
-        int count = input.nextInt();
-        HashMap<String, Integer> map = new HashMap<>();
-        int index = 0;
-        for (int i = 0; i < count; i++) {
-            String current = input.nextLine();
-            if(!map.containsKey(current)) {
-                map.put(current, index++);
-            } else {
-                map.remove(current);
-                map.put(current, index++);
-            }
+        int fragments = input.nextInt();
+        HashMap<Long, Long> map = new HashMap<>();
+        long index = 1;
+        for (int i = 0; i < fragments; i++) {
+            map.put(input.nextLong(), index);
+            index++;
         }
-        TreeSet<String> keys = new TreeSet<String>(new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return -1 * map.get(o1).compareTo(map.get(o2));
-            }
-        });
-        keys.addAll(map.keySet());
-        for(String x : keys) {
-            out.println(x);
+        long total = 0;
+        long starting = map.get(new Long(1));
+        for (long i = 1; i <= fragments; i++) {
+            long next = map.get(i);
+            total += Math.abs(starting - next);
+            starting = next;
         }
-        out.close();
+        out.println(total);
     }
 
     public static PrintWriter out;

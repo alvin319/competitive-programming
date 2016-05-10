@@ -8,8 +8,8 @@ Problem Cateogires
 - HackerRank
 - Google CodeJam
 - USACO
-- Miscellaneous Problem
 - UVa Online Judge
+- Miscellaneous Problem
 
 Languages
 - Java

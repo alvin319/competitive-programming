@@ -11,27 +11,23 @@ public class Codeforces_round_352_div_2_DifferentIsGood {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int length = input.nextInt();
-        String current = input.nextLine();
-        HashMap<Character, Integer> freqMap = new HashMap<>();
-        long answer = 0;
-        for (int i = 0; i < current.length(); i++) {
-            char c = current.charAt(i);
-            if(!freqMap.containsKey(c)) {
-                freqMap.put(c, 1);
-            } else {
-                answer++;
-                freqMap.put(c, freqMap.get(c) + 1);
-            }
-        }
-        for(char x: freqMap.keySet()) {
-            System.out.println(x + " " + freqMap.get(x));
-        }
-        if(answer <= 25) {
-            out.println(answer);
-        } else {
+        if(length > 26) {
             out.println(-1);
+        } else {
+            String current = input.nextLine();
+            HashMap<Character, Integer> freqMap = new HashMap<>();
+            long answer = 0;
+            for (int i = 0; i < current.length(); i++) {
+                char c = current.charAt(i);
+                if (!freqMap.containsKey(c)) {
+                    freqMap.put(c, 1);
+                } else {
+                    answer++;
+                    freqMap.put(c, freqMap.get(c) + 1);
+                }
+            }
+            out.println(answer);
         }
-
         out.close();
     }
 

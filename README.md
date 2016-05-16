@@ -3,7 +3,6 @@
 Problem Cateogires
 - Codeforces
 - Texas UIL
-- Dailyprogrammer from Reddit
 - UT Austin ACM Contests
 - HackerRank
 - Google CodeJam

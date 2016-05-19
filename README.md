@@ -8,6 +8,7 @@ Problem Cateogires
 - Google CodeJam
 - USACO
 - UVa Online Judge
+- SPOJ
 - Miscellaneous Problem
 
 Languages

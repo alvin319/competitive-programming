@@ -11,48 +11,49 @@ public class Codeforces_round_87_Party {
 
     static boolean[] visited;
     static HashMap<Integer, ArrayList<Integer>> map;
+    static int answer = 0;
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         map = new HashMap<>();
         int count = input.nextInt();
         visited = new boolean[count];
+        ArrayList<Integer> managers = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            int current = input.nextInt();
-            if(current != -1) {
-                current--;
+            int manager = input.nextInt();
+            if(manager != -1) {
+                manager--;
                 ArrayList<Integer> list;
-                if(!map.containsKey(i)) {
+                if(!map.containsKey(manager)) {
                     list = new ArrayList<>();
                 } else {
-                    list = map.get(i);
+                    list = map.get(manager);
                 }
-                list.add(current);
-                map.put(i, list);
+                list.add(i);
+                map.put(manager, list);
+            } else {
+                managers.add(i);
             }
         }
-        int current = -1;
-        for(int x : map.keySet()) {
+        for(int x : managers) {
             if(!visited[x]) {
-                current = Math.max(current, DFS(x, 0));
+                DFS(x, 1);
             }
         }
-        out.println(current);
+        out.println(answer == 0 ? 1 : answer);
         out.close();
     }
 
-    public static int DFS(int root, int total) {
+    public static void DFS(int root, int depth) {
+        answer = Math.max(answer, depth);
         if(!visited[root]) {
             visited[root] = true;
-            int sum = 1;
             if(map.containsKey(root)) {
                 for(int x : map.get(root)) {
-                    sum += DFS(x, total);
+                    DFS(x, depth + 1);
                 }
             }
-            return sum;
         }
-        return total;
     }
     public static PrintWriter out;
 

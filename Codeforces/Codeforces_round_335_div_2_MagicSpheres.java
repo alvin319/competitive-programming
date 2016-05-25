@@ -2,27 +2,44 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * Created by Alvin on 5/23/2016.
+ * Created by Alvin on 5/24/2016.
  */
 
-public class Codeforces_round_104_div_1_LuckyConversion {
+public class Codeforces_round_335_div_2_MagicSpheres {
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
-        String a = input.nextLine();
-        String b = input.nextLine();
-        long count_4 = 0;
-        long count_7 = 0;
-        for (int i = 0; i < a.length(); i++) {
-            if(a.charAt(i) != b.charAt(i)) {
-                if(a.charAt(i) == '4') {
-                    count_4++;
-                } else {
-                    count_7++;
-                }
-            }
+        int a = input.nextInt();
+        int b = input.nextInt();
+        int c = input.nextInt();
+        int x = input.nextInt();
+        int y = input.nextInt();
+        int z = input.nextInt();
+        int remainBalls = 0;
+        if(a - x > 0) {
+            remainBalls += (a - x) / 2;
         }
-        out.println(Math.max(count_4, count_7));
+
+        if(b - y > 0) {
+            remainBalls += (b - y) / 2;
+        }
+        if(c - z > 0) {
+            remainBalls += (c - z) / 2;
+        }
+        if(a < x) {
+            remainBalls -= (x - a);
+        }
+        if(b < y) {
+            remainBalls -= (y - b);
+        }
+        if(c < z) {
+            remainBalls -= (z - c);
+        }
+        if(remainBalls >= 0) {
+            out.println("Yes");
+        } else {
+            out.println("No");
+        }
         out.close();
     }
 

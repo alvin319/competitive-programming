@@ -16,7 +16,7 @@ Languages
 - C++
 - Python
 
-# Big-O Analysis
+# Big O Analysis
 | Complexity           | Maximum Input Size | Comments                         |
 |----------------------|--------------------|----------------------------------|
 | O(N), O(Log N), O(1) | 1,000,000 (10^6)   |                                  |

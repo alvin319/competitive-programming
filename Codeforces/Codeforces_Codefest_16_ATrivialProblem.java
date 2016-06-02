@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * Created by Alvin on 4/11/2016.
  */
-public class Codefocres_Codefest_16_ATrivialProblem {
+public class Codeforces_Codefest_16_ATrivialProblem {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int requirement = input.nextInt();

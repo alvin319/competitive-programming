@@ -12,16 +12,15 @@ public class Codeforces_Educational_round_1_TrickySum {
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int n = input.nextInt();
         for (int i = 0; i < n; i++) {
-            int current = input.nextInt();
-            BigInteger answer = BigInteger.ZERO;
-            for (int j = 1; j <= current; j++) {
-                System.out.println(Math.log(j));
+            long current = input.nextLong();
+            long answer = (current * (current + 1)) / 2;
+            for (long j = 1; j <= current; j *= 2) {
+                answer -= 2 * j;
             }
+            System.out.println(answer);
         }
         out.close();
     }
-
-    public static boolean isPower
 
     public static PrintWriter out;
 

@@ -14,45 +14,34 @@ public class Codeforces_VKCup_2016_round_3_BearAndColors {
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int balls = input.nextInt();
         int[] interval = new int[balls];
-        int[] slots = new int[balls];
+        int[] answer = new int[balls];
         for (int i = 0; i < interval.length; i++) {
-            int current = input.nextInt();
-            interval[i] = current;
+            interval[i] = input.nextInt();
         }
 
         for (int i = 0; i < interval.length; i++) {
-            for (int j = i + 1; j <= interval.length; j++) {
-                    slots[dominant(interval, i , j) - 1]++;
+            int[] overallCount = new int[balls];
+            int currentCount = 1;
+            int currentDominantIndex = interval[i] - 1;
+            answer[interval[i] - 1]++;
+            overallCount[interval[i] - 1]++;
+            for (int j = i + 1; j < interval.length; j++) {
+                overallCount[interval[j] - 1]++;
+                if(overallCount[interval[j] - 1] > currentCount) {
+                    currentCount = overallCount[interval[j] - 1];
+                    currentDominantIndex = interval[j] - 1;
+                } else if(overallCount[interval[j] - 1] == currentCount && (interval[j] - 1) < currentDominantIndex) {
+                    currentDominantIndex = interval[j] - 1;
+                }
+                answer[currentDominantIndex]++;
             }
         }
-        for(int x : slots) {
-            System.out.print(x + " ");
+        for (int i = 0; i < answer.length; i++) {
+            out.print(i == 0 ? answer[i] : " " + answer[i]);
         }
+
         out.close();
     }
-
-    public static int dominant(int[] array, int start, int end) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = start; i < end; i++) {
-            if(!map.containsKey(array[i])) {
-                map.put(array[i], 1);
-            } else {
-                map.put(array[i], map.get(array[i]) + 1);
-            }
-        }
-        int bestDominantIndex = array[start];
-        for(int x : map.keySet()) {
-            if(map.get(x) > map.get(bestDominantIndex)) {
-                bestDominantIndex = x;
-            } else if(map.get(x).equals(map.get(bestDominantIndex))) {
-                if(bestDominantIndex > x) {
-                    bestDominantIndex = x;
-                }
-            }
-        }
-        return bestDominantIndex;
-    }
-
     public static PrintWriter out;
 
     public static class FScanner {

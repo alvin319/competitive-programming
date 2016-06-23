@@ -13,7 +13,7 @@ public class Codeforces_round_65_div_2_WayTooLongWords {
         for (int i = 0; i < n; i++) {
             String word = input.nextLine();
             if(word.length() > 10) {
-                out.println(word.charAt(0) + "" + word.charAt())
+                out.println(word.charAt(0) + "" + (word.length() - 2) + word.charAt(word.length() - 1));
             } else {
                 out.println(word);
             }

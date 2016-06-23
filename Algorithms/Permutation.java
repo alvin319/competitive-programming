@@ -16,7 +16,7 @@ public class Permutation {
         System.out.println("Permutation");
         getPermutation(testSet, "");
 
-        String[][] matrix = {{"a","b","c"}, {"d","e","f"}};
+        String[][] matrix = {{"a","b","c"}, {"a","b","c"}, {"a", "b", "c"}};
         System.out.println("Google Permutation");
         googlePermutation(matrix, "", 0);
     }

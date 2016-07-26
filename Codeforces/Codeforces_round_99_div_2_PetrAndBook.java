@@ -1,40 +1,27 @@
 import java.io.*;
-import java.math.BigInteger;
 import java.util.StringTokenizer;
 
 /**
- * Created by Alvin on 7/18/2016.
+ * Created by Alvin on 7/25/2016.
  */
 
-public class Codeforces_round_267_div_2_FedorAndNewGame {
+public class Codeforces_round_99_div_2_PetrAndBook {
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
-        int n = input.nextInt();
-        int m = input.nextInt();
-        int k = input.nextInt();
-        String[] array = new String[m + 1];
-        for (int i = 0; i <= m; i++) {
-            array[i] = input.nextLine();
-        }
-        int answer = 0;
-        String checking = array[array.length - 1];
-        for (int i = 0; i < m; i++) {
-            String binaryResult = new BigInteger(array[i]).xor(new BigInteger(checking)).toString(2);
-            int count = 0;
-            boolean nope = true;
-            for (int j = 0; j < binaryResult.length(); j++) {
-                count += binaryResult.charAt(j) == '1' ? 1 : 0;
-                if (count > k) {
-                    nope = false;
-                    break;
-                }
+        int pages = input.nextInt();
+        int[] days = {input.nextInt(), input.nextInt(), input.nextInt(), input.nextInt(), input.nextInt(), input.nextInt(), input.nextInt()};
+        for (int i = 0; i < days.length; i++) {
+            if(pages - days[i] > 0) {
+                pages -= days[i];
+            } else {
+                out.println(i + 1);
+                System.exit(0);
             }
-            if (nope) {
-                answer++;
+            if(i == days.length - 1) {
+                i = -1;
             }
         }
-        out.println(answer);
         out.close();
     }
 

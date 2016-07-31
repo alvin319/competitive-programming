@@ -10,7 +10,6 @@ public class minCoin {
         for (int i = 0; i < denominations.length; i++) {
             values[denominations[i]] = 1;
         }
-
         for (int i = 0; i < values.length; i++) {
             int minimumValue = DEFAULT;
             for (int j = 0; j < denominations.length; j++) {
@@ -24,7 +23,7 @@ public class minCoin {
 
         System.out.println(values[v]);
         for (int x : values) {
-            System.out.println(x);
+            System.out.print(x + " ");
         }
     }
 }

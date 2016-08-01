@@ -4,25 +4,24 @@
 public class SubsetSum {
     public static void main(String[] args) {
         int[] array = {1, 5, 9, 18, 21, 6, 4};
-        int sum = 10;
-        subsetSum(array, sum, array.length);
+        int sum = 39;
+        System.out.println(subsetSum(array, sum, array.length));
     }
 
-    public static void subsetSum(int[] array, int sum, int items) {
-        boolean[][] subsetMatrix = new boolean[sum + 1][items + 1];
-        for (int i = 0; i <= sum; i++) {
-            subsetMatrix[i][0] = false;
-        }
+    public static boolean subsetSum(int[] array, int sum, int items) {
+        boolean[][] subsetMatrix = new boolean[items + 1][sum + 1];
         for (int i = 0; i <= items; i++) {
-            subsetMatrix[0][i] = true;
+            subsetMatrix[i][0] = true;
         }
         for (int i = 1; i <= items; i++) {
             for (int j = 1; j <= sum; j++) {
-                subsetMatrix[i][j] = subsetMatrix[i - 1][j];
-                if (subsetMatrix[i][j] == false && j >= array[i]) {
-
+                if (j - array[i - 1] >= 0) { // Choosing this element and see if the remaining can be satisfied with previous set
+                    subsetMatrix[i][j] = subsetMatrix[i - 1][j] || subsetMatrix[i - 1][j - array[i - 1]];
+                } else { // Can't afford it, looking at previous sets for answers
+                    subsetMatrix[i][j] = subsetMatrix[i - 1][j];
                 }
             }
         }
+        return subsetMatrix[items][sum];
     }
 }

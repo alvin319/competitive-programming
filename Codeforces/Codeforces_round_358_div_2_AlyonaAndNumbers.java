@@ -13,8 +13,8 @@ public class Codeforces_round_358_div_2_AlyonaAndNumbers {
         long answer = 0;
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < b.length; j++) {
-                if ((a[i] + b[j]) % 5 == 0) {
-                    answer += (long)a[i] * (long)b[i];
+                if ((i + j) % 5 == 0) {
+                    answer += (long) a[i] * (long) b[j];
                 }
             }
         }

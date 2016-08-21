@@ -8,13 +8,16 @@ import java.util.StringTokenizer;
 
 public class Codeforces_round_367_div_2_VasiliyMultiset {
 
-    public static Node root;
+    public static int global_id = 0;
+    public static HashMap<Integer, Node> bMap = new HashMap<>();
 
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int count = input.nextInt();
-        root = new Node();
+        Node currentNode = new Node();
+        bMap.put(global_id++, currentNode);
+
         for (int i = 0; i < count; i++) {
             String[] array = input.nextLine().split(" ");
             int value = Integer.parseInt(array[1]);
@@ -25,162 +28,133 @@ public class Codeforces_round_367_div_2_VasiliyMultiset {
             }
             binaryString = prepend + binaryString;
             if (array[0].equals("+")) {
-                constructTree(0, binaryString, value, root);
+                constructTree(binaryString, value);
             } else if (array[0].equals("?")) {
-                int bestValue = findValue(0, binaryString, root);
-                System.out.println((value ^ bestValue) > value ? value ^ bestValue : value);
+                int bestValue = findValue(binaryString);
+                int answer = (value ^ bestValue) > value ? value ^ bestValue : value;
+                System.out.println(answer);
             } else {
-                deleteValue(0, binaryString, value, root);
+                deleteValue(binaryString, value);
             }
         }
-        Node wat = root;
-        for (int i = 0; i < "00000000000000000000000000".length(); i++) {
-            wat = wat.rightZero;
-        }
-        System.out.println(wat.leftOne.rightZero.rightZero.rightZero);
-
-        System.out.println("answer: " + findValue(0, "000000000000000000000000001000", root));
         out.close();
     }
 
-    public static void deleteValue(int index, String binaryString, int value, Node currentNode) {
-        char currentChar = binaryString.charAt(index);
-        if (index == binaryString.length() - 1) {
+    public static void deleteValue(String binaryString, int value) {
+        int currentID = 0;
+        for (int i = 0; i < binaryString.length() - 1; i++) {
+            char currentChar = binaryString.charAt(i);
+            Node currentNode = bMap.get(currentID);
             if (currentChar == '1') {
-                int counter = currentNode.leftOne.map.get(value);
-                if (counter - 1 == 0) {
-                    currentNode.leftOne.map.remove(value);
-                } else {
-                    currentNode.leftOne.map.put(value, counter - 1);
-                }
-                if (currentNode.leftOne.map.isEmpty()) {
-                    currentNode.leftOne = null;
-                }
-                if (currentNode.leftOne == null && currentNode.rightZero == null && (currentNode.map == null || currentNode.map.isEmpty())) {
-                    currentNode = null;
-                }
+                currentID = currentNode.leftOne;
             } else {
-                int counter = currentNode.rightZero.map.get(value);
-                if (counter - 1 == 0) {
-                    currentNode.rightZero.map.remove(value);
-                } else {
-                    currentNode.rightZero.map.put(value, counter - 1);
-                }
-                if (currentNode.rightZero.map.isEmpty()) {
-                    currentNode.rightZero = null;
-                }
-                if (currentNode.rightZero == null && currentNode.rightZero == null && (currentNode.map == null || currentNode.map.isEmpty())) {
-                    currentNode = null;
-                }
+                currentID = currentNode.rightZero;
             }
+        }
+        int counter = bMap.get(currentID).map.get(value) - 1;
+        if (counter > 0) {
+            bMap.get(currentID).map.put(value, counter);
         } else {
+            bMap.get(currentID).map.remove(value);
+        }
+        System.out.println(bMap.get(currentID).map);
+        int recursionID = currentID;
+        Node currentNode = bMap.get(recursionID);
+        System.out.println(currentNode.leftOne);
+
+        int index = binaryString.length() - 1;
+        while ((currentNode.map == null || currentNode.map.isEmpty()) && currentNode.leftOne == -1 && currentNode.rightZero == -1) {
+            System.out.println("deletion");
+            Node parentNode = bMap.get(currentNode.parentID);
+            char currentChar = binaryString.charAt(index);
             if (currentChar == '1') {
-                deleteValue(index + 1, binaryString, value, currentNode.leftOne);
-                System.out.println("ind: " + index + " " + currentNode.leftOne + " " + currentNode.rightZero + " ");
-                if (currentNode.leftOne == null && currentNode.rightZero == null && (currentNode.map == null || currentNode.map.isEmpty())) {
-                    currentNode = null;
-                }
+                parentNode.leftOne = -1;
             } else {
-                deleteValue(index + 1, binaryString, value, currentNode.rightZero);
-                if (currentNode.leftOne == null && currentNode.rightZero == null && (currentNode.map == null || currentNode.map.isEmpty())) {
-                    currentNode = null;
-                }
+                parentNode.rightZero = -1;
             }
+            bMap.remove(recursionID);
+            currentNode = bMap.get(currentNode.parentID);
+            recursionID = currentNode.parentID;
+            index--;
         }
     }
 
-    public static int findValue(int index, String binaryString, Node currentNode) {
-        if (index == binaryString.length() - 1) {
-            char currentChar = binaryString.charAt(index);
-            if (currentChar == '0') {
-                if (currentNode.leftOne != null) {
-                    return findValue(index, binaryString, currentNode.leftOne);
-                } else if (currentNode.rightZero != null) {
-                    return findValue(index, binaryString, currentNode.rightZero);
+    public static int findValue(String binaryString) {
+        int currentID = 0;
+        for (int i = 0; i < binaryString.length(); i++) {
+            char currentChar = binaryString.charAt(i);
+            Node currentNode = bMap.get(currentID);
+            if (currentChar == '1') {
+                if (currentNode.rightZero != -1) {
+                    currentID = currentNode.rightZero;
+                } else if (currentNode.leftOne != -1) {
+                    currentID = currentNode.leftOne;
                 }
             } else {
-                if (currentNode.rightZero != null) {
-                    return findValue(index, binaryString, currentNode.rightZero);
-                } else if (currentNode.leftOne != null) {
-                    return findValue(index, binaryString, currentNode.leftOne);
+                if (currentNode.leftOne != -1) {
+                    currentID = currentNode.leftOne;
+                } else if (currentNode.rightZero != -1) {
+                    currentID = currentNode.rightZero;
                 }
             }
-            int bestValue = 0;
-            if (currentNode.map != null) {
-                for (int value : currentNode.map.keySet()) {
-                    bestValue = value;
-                    break;
-                }
-            }
-            return bestValue;
         }
-        char currentChar = binaryString.charAt(index);
-        if (currentChar == '1') {
-            if (currentNode.rightZero != null) {
-                return findValue(index + 1, binaryString, currentNode.rightZero);
-            } else if (currentNode.leftOne != null) {
-                return findValue(index + 1, binaryString, currentNode.leftOne);
-            }
-        } else {
-            if (currentNode.leftOne != null) {
-                return findValue(index + 1, binaryString, currentNode.leftOne);
-            } else if (currentNode.rightZero != null) {
-                return findValue(index + 1, binaryString, currentNode.rightZero);
+        int bestValue = 0;
+        if (bMap.get(currentID).map != null) {
+            for (int value : bMap.get(currentID).map.keySet()) {
+                bestValue = value;
+                break;
             }
         }
-        return 0;
+        return bestValue;
     }
 
-    public static void constructTree(int index, String binaryString, int value, Node currentNode) {
-        if (index == binaryString.length() - 1) {
-            if (currentNode == root) {
-                char lastChar = binaryString.charAt(index);
-                if (lastChar == '1') {
-                    if (root.leftOne == null) {
-                        root.leftOne = new Node();
-                        root.leftOne.map = new HashMap<>();
-                    }
-                    root.leftOne.map.put(1, root.leftOne.map.containsKey(1) ? root.leftOne.map.get(1) + 1 : 1);
-                }
-            } else {
-                char currentChar = binaryString.charAt(index);
-                if (currentChar == '1') {
-                    if (currentNode.leftOne == null) {
-                        currentNode.leftOne = new Node();
-                        currentNode.leftOne.map = new HashMap<>();
-                    }
-                    currentNode.leftOne.map.put(value, currentNode.leftOne.map.containsKey(value) ? currentNode.leftOne.map.get(value) + 1 : 1);
-                } else {
-                    if (currentNode.rightZero == null) {
-                        currentNode.rightZero = new Node();
-                        currentNode.rightZero.map = new HashMap<>();
-                    }
-                    currentNode.rightZero.map.put(value, currentNode.rightZero.map.containsKey(value) ? currentNode.rightZero.map.get(value) + 1 : 1);
-                }
-            }
-        } else {
-            char currentChar = binaryString.charAt(index);
+    public static void constructTree(String binaryString, int value) {
+        int currentID = 0;
+        for (int i = 0; i < binaryString.length(); i++) {
+            char currentChar = binaryString.charAt(i);
+            Node currentNode = bMap.get(currentID);
             if (currentChar == '1') {
-                if (currentNode.leftOne == null) {
-                    currentNode.leftOne = new Node();
+                if (currentNode.leftOne == -1) {
+                    Node nextNode = new Node();
+                    nextNode.parentID = currentID;
+                    currentNode.leftOne = global_id;
+                    bMap.put(global_id++, nextNode);
                 }
-                constructTree(index + 1, binaryString, value, currentNode.leftOne);
-            } else if (currentChar == '0') {
-                if (currentNode.rightZero == null) {
-                    currentNode.rightZero = new Node();
+                currentID = currentNode.leftOne;
+            } else {
+                if (currentNode.rightZero == -1) {
+                    Node nextNode = new Node();
+                    nextNode.parentID = currentID;
+                    currentNode.rightZero = global_id;
+                    bMap.put(global_id++, nextNode);
                 }
-                constructTree(index + 1, binaryString, value, currentNode.rightZero);
+                currentID = currentNode.rightZero;
+            }
+            if (i == binaryString.length() - 1) {
+                currentNode.leftOne = -1;
+                currentNode.rightZero = -1;
+                currentNode.map = currentNode.map == null ? new HashMap<>() : currentNode.map;
+                currentNode.map.put(value, currentNode.map.containsKey(value) ? currentNode.map.get(value) + 1 : 1);
+                bMap.put(currentID, currentNode);
             }
         }
     }
 
     static class Node {
-        Node leftOne;
-        Node rightZero;
+        int parentID;
+        int leftOne;
+        int rightZero;
         HashMap<Integer, Integer> map;
 
         public Node() {
             map = null;
+            leftOne = -1;
+            rightZero = -1;
+            parentID = -1;
+        }
+
+        public String toString() {
+            return "l: " + leftOne + " r: " + rightZero + " p: " + parentID;
         }
     }
 

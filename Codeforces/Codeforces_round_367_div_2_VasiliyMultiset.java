@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -8,153 +8,148 @@ import java.util.StringTokenizer;
 
 public class Codeforces_round_367_div_2_VasiliyMultiset {
 
-    public static int global_id = 0;
-    public static HashMap<Integer, Node> bMap = new HashMap<>();
-
     public static void main(String[] args) {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
-        int count = input.nextInt();
-        Node currentNode = new Node();
-        bMap.put(global_id++, currentNode);
-
-        for (int i = 0; i < count; i++) {
-            String[] array = input.nextLine().split(" ");
-            int value = Integer.parseInt(array[1]);
-            String binaryString = Integer.toBinaryString(value);
-            String prepend = "";
-            for (int j = 1; j <= 30 - (binaryString.length()); j++) {
-                prepend += "0";
-            }
-            binaryString = prepend + binaryString;
-            if (array[0].equals("+")) {
-                constructTree(binaryString, value);
-            } else if (array[0].equals("?")) {
-                int bestValue = findValue(binaryString);
-                int answer = (value ^ bestValue) > value ? value ^ bestValue : value;
-                System.out.println(answer);
+        int iteration = input.nextInt();
+        BinaryTree tree = new BinaryTree();
+        for (int i = 0; i < iteration; i++) {
+            String[] operations = input.nextLine().split(" ");
+            int value = Integer.parseInt(operations[1]);
+            if (operations[0].equals("+")) {
+                tree.add(value);
+            } else if (operations[0].equals("?")) {
+                int bestFind = tree.find(value);
+                out.println((bestFind ^ value) > value ? bestFind ^ value : value);
             } else {
-                deleteValue(binaryString, value);
+                tree.delete(value);
             }
         }
         out.close();
     }
 
-    public static void deleteValue(String binaryString, int value) {
-        int currentID = 0;
-        for (int i = 0; i < binaryString.length() - 1; i++) {
-            char currentChar = binaryString.charAt(i);
-            Node currentNode = bMap.get(currentID);
-            if (currentChar == '1') {
-                currentID = currentNode.leftOne;
-            } else {
-                currentID = currentNode.rightZero;
+    static class BinaryTree {
+
+        Node root;
+
+        public BinaryTree() {
+            root = new Node();
+            root.parent = null;
+            add(0);
+        }
+
+        private class Node {
+            int count;
+            Node leftOne, rightZero, parent;
+
+            public Node() {
+                count = 1;
             }
         }
-        int counter = bMap.get(currentID).map.get(value) - 1;
-        if (counter > 0) {
-            bMap.get(currentID).map.put(value, counter);
-        } else {
-            bMap.get(currentID).map.remove(value);
-        }
-        System.out.println(bMap.get(currentID).map);
-        int recursionID = currentID;
-        Node currentNode = bMap.get(recursionID);
-        System.out.println(currentNode.leftOne);
 
-        int index = binaryString.length() - 1;
-        while ((currentNode.map == null || currentNode.map.isEmpty()) && currentNode.leftOne == -1 && currentNode.rightZero == -1) {
-            System.out.println("deletion");
-            Node parentNode = bMap.get(currentNode.parentID);
-            char currentChar = binaryString.charAt(index);
-            if (currentChar == '1') {
-                parentNode.leftOne = -1;
-            } else {
-                parentNode.rightZero = -1;
+        public static String paddingZero(String binaryString) {
+            String prepend = "";
+            for (int i = 1; i <= 32 - binaryString.length(); i++) {
+                prepend += "0";
             }
-            bMap.remove(recursionID);
-            currentNode = bMap.get(currentNode.parentID);
-            recursionID = currentNode.parentID;
-            index--;
+            return prepend + binaryString;
         }
-    }
 
-    public static int findValue(String binaryString) {
-        int currentID = 0;
-        for (int i = 0; i < binaryString.length(); i++) {
-            char currentChar = binaryString.charAt(i);
-            Node currentNode = bMap.get(currentID);
-            if (currentChar == '1') {
-                if (currentNode.rightZero != -1) {
-                    currentID = currentNode.rightZero;
-                } else if (currentNode.leftOne != -1) {
-                    currentID = currentNode.leftOne;
-                }
-            } else {
-                if (currentNode.leftOne != -1) {
-                    currentID = currentNode.leftOne;
-                } else if (currentNode.rightZero != -1) {
-                    currentID = currentNode.rightZero;
+        private int[] getBitArray(int value) {
+            String binaryString = paddingZero(Integer.toBinaryString(value));
+            int[] array = new int[32];
+            for (int i = 0; i < binaryString.length(); i++) {
+                array[i] = binaryString.charAt(i) == '0' ? 0 : 1;
+            }
+            return array;
+        }
+
+        public void delete(int value) {
+            int[] bitArray = getBitArray(value);
+            Node currentNode = root;
+            boolean removal = false;
+            for (int i = 0; i < bitArray.length; i++) {
+                currentNode = bitArray[i] == 1 ? currentNode.leftOne : currentNode.rightZero;
+                if (i == bitArray.length - 1) {
+                    currentNode.count--;
+                    if (currentNode.count == 0) {
+                        removal = true;
+                    }
                 }
             }
-        }
-        int bestValue = 0;
-        if (bMap.get(currentID).map != null) {
-            for (int value : bMap.get(currentID).map.keySet()) {
-                bestValue = value;
-                break;
-            }
-        }
-        return bestValue;
-    }
 
-    public static void constructTree(String binaryString, int value) {
-        int currentID = 0;
-        for (int i = 0; i < binaryString.length(); i++) {
-            char currentChar = binaryString.charAt(i);
-            Node currentNode = bMap.get(currentID);
-            if (currentChar == '1') {
-                if (currentNode.leftOne == -1) {
-                    Node nextNode = new Node();
-                    nextNode.parentID = currentID;
-                    currentNode.leftOne = global_id;
-                    bMap.put(global_id++, nextNode);
+            while (removal) {
+                if (currentNode.parent.leftOne == currentNode) {
+                    currentNode.parent.leftOne = null;
+                } else if (currentNode.parent.rightZero == currentNode) {
+                    currentNode.parent.rightZero = null;
                 }
-                currentID = currentNode.leftOne;
-            } else {
-                if (currentNode.rightZero == -1) {
-                    Node nextNode = new Node();
-                    nextNode.parentID = currentID;
-                    currentNode.rightZero = global_id;
-                    bMap.put(global_id++, nextNode);
+                if (currentNode.parent.leftOne != null || currentNode.parent.rightZero != null) {
+                    removal = false;
+                } else {
+                    currentNode = currentNode.parent;
                 }
-                currentID = currentNode.rightZero;
-            }
-            if (i == binaryString.length() - 1) {
-                currentNode.leftOne = -1;
-                currentNode.rightZero = -1;
-                currentNode.map = currentNode.map == null ? new HashMap<>() : currentNode.map;
-                currentNode.map.put(value, currentNode.map.containsKey(value) ? currentNode.map.get(value) + 1 : 1);
-                bMap.put(currentID, currentNode);
             }
         }
-    }
 
-    static class Node {
-        int parentID;
-        int leftOne;
-        int rightZero;
-        HashMap<Integer, Integer> map;
-
-        public Node() {
-            map = null;
-            leftOne = -1;
-            rightZero = -1;
-            parentID = -1;
+        public int find(int value) {
+            int[] bitArray = getBitArray(value);
+            int[] resultArray = new int[bitArray.length];
+            Node currentNode = root;
+            for (int i = 0; i < bitArray.length; i++) {
+                if (bitArray[i] == 1) {
+                    if (currentNode.rightZero != null) {
+                        currentNode = currentNode.rightZero;
+                    } else if (currentNode.leftOne != null) {
+                        resultArray[i] = 1;
+                        currentNode = currentNode.leftOne;
+                    }
+                } else {
+                    if (currentNode.leftOne != null) {
+                        resultArray[i] = 1;
+                        currentNode = currentNode.leftOne;
+                    } else if (currentNode.rightZero != null) {
+                        currentNode = currentNode.rightZero;
+                    }
+                }
+            }
+            int solution = 0;
+            for (int i = 0; i < resultArray.length; i++) {
+                solution += resultArray[i] == 1 ? 1 << (31 - i) : 0;
+            }
+            return solution;
         }
 
-        public String toString() {
-            return "l: " + leftOne + " r: " + rightZero + " p: " + parentID;
+        public void add(int value) {
+            int[] bitArray = getBitArray(value);
+            Node currentNode = root;
+            boolean repeatedPath = false;
+            for (int i = 0; i < bitArray.length; i++) {
+                if (bitArray[i] == 1) {
+                    if (currentNode.leftOne != null) {
+                        currentNode = currentNode.leftOne;
+                    } else {
+                        Node newNode = new Node();
+                        newNode.parent = currentNode;
+                        currentNode.leftOne = newNode;
+                        currentNode = newNode;
+                        repeatedPath = true;
+                    }
+                } else {
+                    if (currentNode.rightZero != null) {
+                        currentNode = currentNode.rightZero;
+                    } else {
+                        Node newNode = new Node();
+                        newNode.parent = currentNode;
+                        currentNode.rightZero = newNode;
+                        currentNode = newNode;
+                        repeatedPath = true;
+                    }
+                }
+            }
+            if (!repeatedPath) {
+                currentNode.count++;
+            }
         }
     }
 

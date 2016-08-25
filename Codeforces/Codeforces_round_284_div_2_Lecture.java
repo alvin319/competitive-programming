@@ -13,36 +13,25 @@ public class Codeforces_round_284_div_2_Lecture {
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int n = input.nextInt();
         int m = input.nextInt();
-        HashMap<String, String> firstLang = new HashMap<>();
-        HashMap<String, String> secondLang = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         for (int i = 0; i < m; i++) {
             String[] array = input.nextLine().split(" ");
-            firstLang.put(array[0], array[1]);
-            secondLang.put(array[1], array[0]);
+            map.put(array[0], array[1]);
         }
         String[] array = input.nextLine().split(" ");
         String[] solution = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             String current = array[i];
-            // Second Found
-            String first = firstLang.get(current);
-            // First Found
-            String second = secondLang.get(current);
-            if (first == null) {
-                if (current.length() > second.length()) {
-                    solution[i] = second;
-                } else if (current.length() == second.length()) {
-                    solution[i] = second;
-                }
-            } else if (second == null) {
-                if (current.length() > first.length()) {
-                    solution[i] = first;
-                } else if (current.length() == first.length()) {
-                    solution[i] = current;
-                }
+            String next = map.get(current);
+            if (next.length() < current.length()) {
+                solution[i] = next;
+            } else {
+                solution[i] = current;
             }
         }
-        System.out.println(Arrays.toString(solution));
+        for (int i = 0; i < solution.length; i++) {
+            out.print(i == 0 ? solution[i] : " " + solution[i]);
+        }
         out.close();
     }
 

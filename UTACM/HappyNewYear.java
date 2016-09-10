@@ -11,44 +11,59 @@ public class HappyNewYear {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int count = input.nextInt();
+        iteration:
         for (int i = 0; i < count; i++) {
-            int airport = input.nextInt();
-            int flight = input.nextInt();
-            long[][] dist = new long[airport][airport];
+            int airport = input.nextInt(), flights = input.nextInt();
+            HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
             for (int j = 0; j < airport; j++) {
-                Arrays.fill(dist[j], 99999);
+                map.put(j, new ArrayList<>());
             }
+            for (int j = 0; j < flights; j++) {
+                int from = input.nextInt(), to = input.nextInt();
+                map.get(from).add(to);
+            }
+            int[][] dist = new int[airport][airport];
             for (int j = 0; j < airport; j++) {
-                dist[j][j] = 0;
-            }
-            for (int j = 0; j < flight; j++) {
-                dist[input.nextInt()][input.nextInt()] = 1;
-            }
-            for (int j = 0; j < airport; j++) {
-                for (int k = 0; k < airport; k++) {
-                    for (int l = 0; l < airport; l++) {
-                        if (dist[k][j] + dist[j][l] < dist[k][l]) {
-                            dist[k][l] = dist[k][j] + dist[j][l];
+                boolean[] visited = new boolean[airport];
+                Queue<int[]> queue = new LinkedList<>();
+                queue.add(new int[]{j, 0});
+                while (!queue.isEmpty()) {
+                    int[] info = queue.poll();
+                    int location = info[0];
+                    int cost = info[1];
+                    if (!visited[location]) {
+                        visited[location] = true;
+                        dist[j][location] = cost;
+                        for (int neighbor : map.get(location)) {
+                            queue.add(new int[]{neighbor, cost + 1});
                         }
                     }
                 }
-            }
-            for (int j = 0; j < airport; j++) {
                 for (int k = 0; k < airport; k++) {
-                    for (int l = 0; l < airport; l++) {
-                        if (dist[j][l] != 99999 && dist[k][l] != 99999 && Math.max(dist[j][l], dist[k][l]) < dist[j][k]) {
-                            dist[j][k] = Math.max(dist[j][l], dist[k][l]);
-                        }
+                    if (!visited[k]) {
+                        visited[k] = true;
+                        dist[j][k] = Integer.MAX_VALUE;
                     }
                 }
             }
-            long maxCost = Long.MIN_VALUE;
-            for (int j = 0; j < dist.length; j++) {
-                for (int k = 0; k < dist.length; k++) {
-                    maxCost = Math.max(maxCost, dist[j][k]);
+            int answer = 0;
+            for (int j = 0; j < airport; j++) {
+                for (int k = 0; k < airport; k++) {
+                    if (j != k) {
+                        int cost = Integer.MAX_VALUE;
+                        for (int l = 0; l < airport; l++) {
+                            int flightCost = Math.max(dist[j][l], dist[k][l]);
+                            cost = Math.min(cost, flightCost);
+                        }
+                        if (cost == Integer.MAX_VALUE) {
+                            out.println("IMPOSSIBLE");
+                            continue iteration;
+                        }
+                        answer = Math.max(answer, cost);
+                    }
                 }
             }
-            out.println(maxCost == 99999 ? "IMPOSSIBLE" : maxCost);
+            out.println(answer);
         }
     }
 

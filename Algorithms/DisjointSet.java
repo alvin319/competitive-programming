@@ -33,9 +33,9 @@ public class DisjointSet {
             return false;
         }
 
-        if(firstParent.rank > secondParent.rank) {
+        if (firstParent.rank > secondParent.rank) {
             secondParent.parent = firstParent;
-        } else if(firstParent.rank < secondParent.rank) {
+        } else if (firstParent.rank < secondParent.rank) {
             firstParent.parent = secondParent;
         } else {
             firstParent.rank++;

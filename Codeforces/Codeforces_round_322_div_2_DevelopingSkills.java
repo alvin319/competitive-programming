@@ -25,7 +25,7 @@ public class Codeforces_round_322_div_2_DevelopingSkills {
             }
         });
         long answer = 0;
-        for (int j = 0; j < 1000; j++) {
+        for (int j = 0; j < 100; j++) {
             for (int i = 0; i < list.size(); i++) {
                 int current = 10 - (list.get(i) % 10);
                 if (list.get(i) == 100) {

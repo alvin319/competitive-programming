@@ -15,7 +15,7 @@ public class DisjointSet {
 
     public static int findSet(int data) {
         int parentData = map.get(data).parent.data;
-        if(parentData == data) {
+        if (parentData == data) {
             return data;
         } else {
             return findSet(parentData);
@@ -58,20 +58,18 @@ public class DisjointSet {
 
         unionSet(1, 2);
         unionSet(2, 3);
-        System.out.println("parent: "  + findSet(3));
+        System.out.println("parent: " + findSet(3));
         unionSet(4, 5);
-        System.out.println("parent: "  + findSet(5));
+        System.out.println("parent: " + findSet(5));
         unionSet(6, 7);
-        System.out.println("parent: "  + findSet(7));
+        System.out.println("parent: " + findSet(7));
         unionSet(5, 6);
-        System.out.println("parent: "  + findSet(7));
-        System.out.println("parent: "  + findSet(2));
+        System.out.println("parent: " + findSet(7));
+        System.out.println("parent: " + findSet(2));
         unionSet(3, 7);
         for (int i = 1; i <= 7; i++) {
             System.out.println("findSet(i) = " + findSet(i));
         }
-
-
     }
 
     static class Node {

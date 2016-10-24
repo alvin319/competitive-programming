@@ -22,9 +22,7 @@ public class Codeforces_round_377_div_2_CormenTheBestFriendOfaMan {
         for (int i = 1; i < array.length - 1; i++) {
             array[i] += Math.max(0, k - array[i] - array[i - 1]);
         }
-        if (array.length == 1) {
-            array[array.length - 1] += Math.max(0, k - array[array.length - 1]);
-        } else {
+        if (array.length != 1) {
             array[array.length - 1] += Math.max(0, k - array[array.length - 1] - array[array.length - 2]);
         }
         int diff = 0;

@@ -4,8 +4,9 @@
 public class SubsetSum {
     public static void main(String[] args) {
         int[] array = {1, 5, 9, 18, 21, 6, 4};
-        int sum = 39;
+        int sum = 15;
         System.out.println(subsetSum(array, sum, array.length));
+        System.out.println(subsetSum1D(array, sum));
     }
 
     public static boolean subsetSum(int[] array, int sum, int items) {
@@ -23,5 +24,16 @@ public class SubsetSum {
             }
         }
         return subsetMatrix[items][sum];
+    }
+
+    public static boolean subsetSum1D(int[] array, int target) {
+        boolean[] subset = new boolean[target + 1];
+        subset[0] = true; // Empty set satisfies 0
+        for (int i = 1; i <= array.length; i++) {
+            for (int j = target; j >= array[i - 1]; j--) {
+                subset[j] |= subset[j - array[i - 1]];
+            }
+        }
+        return subset[target];
     }
 }

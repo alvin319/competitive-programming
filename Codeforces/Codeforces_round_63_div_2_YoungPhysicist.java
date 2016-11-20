@@ -11,13 +11,15 @@ public class Codeforces_round_63_div_2_YoungPhysicist {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int n = input.nextInt();
-        int answer = 0;
+        int x = 0;
+        int y = 0;
+        int z = 0;
         for (int i = 0; i < n; i++) {
-            answer += input.nextInt();
-            answer += input.nextInt();
-            answer += input.nextInt();
+            x += input.nextInt();
+            y += input.nextInt();
+            z += input.nextInt();
         }
-        out.println(answer == 0 ? "YES" : "NO");
+        out.println(x == 0 && y == 0 && z == 0 ? "YES" : "NO");
         out.close();
     }
 

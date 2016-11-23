@@ -11,13 +11,17 @@ public class Codeforces_round_84_div_2_NearlyLuckyNumber {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         String line = input.nextLine();
+        int f = 0;
+        int s = 0;
         for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) != '4' && line.charAt(i) != '7') {
-                out.println("NO");
-                System.exit(0);
+            if (line.charAt(i) == '4') {
+                f++;
+            }
+            if (line.charAt(i) == '7') {
+                s++;
             }
         }
-        out.println("YES");
+        out.println(f + s == 4 || f + s == 7 ? "YES" : "NO");
         out.close();
     }
 

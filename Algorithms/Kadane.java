@@ -14,11 +14,11 @@ public class Kadane {
         for (int i = 0; i < array.length; i++) {
             currentProfit += array[i];
             currentEnd = i;
-            if(currentProfit >= cache[j - 1]) {
+            if (currentProfit >= cache[j - 1]) {
                 maxEnd = currentEnd;
                 maxStart = currentStart;
             }
-            if(currentProfit <= 0) {
+            if (currentProfit <= 0) {
                 currentProfit = 0;
                 currentStart = i + 1;
             }

@@ -19,13 +19,13 @@ public class ReversePals {
     public static String process(String number, int count) {
         String totalNum = "" + (Integer.parseInt(new StringBuffer(number).reverse().toString()) + Integer.parseInt(number));
         boolean isPali = isPali(totalNum);
-        return isPali ? (totalNum + " " + count) : process(totalNum,count+1);
+        return isPali ? (totalNum + " " + count) : process(totalNum, count + 1);
     }
 
     public static boolean isPali(String iter) {
         for (int i = 0; i < iter.length(); i++) {
-            char lastChar = iter.charAt(iter.length()-1-i);
-            if(iter.charAt(i) != lastChar)
+            char lastChar = iter.charAt(iter.length() - 1 - i);
+            if (iter.charAt(i) != lastChar)
                 return false;
         }
         return true;

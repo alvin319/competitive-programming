@@ -17,8 +17,8 @@ public class StockMaximize {
             long totalProfit = 0;
             long last = stock[stock.length - 1];
 
-            for(int j = stock.length - 1; j >= 0; j--){
-                if(stock[j] > last) {
+            for (int j = stock.length - 1; j >= 0; j--) {
+                if (stock[j] > last) {
                     last = stock[j];
                 }
                 totalProfit += last - stock[j];

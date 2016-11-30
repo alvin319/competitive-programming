@@ -19,10 +19,10 @@ public class CodeJam2016_round_1A_TheLastWord {
             int maxIndex = 0;
             for (int j = 1; j < current.length(); j++) {
                 char now = current.charAt(j);
-                if((int)now > (int)answer.getFirst()) {
+                if ((int) now > (int) answer.getFirst()) {
                     answer.addFirst(now);
                     maxIndex = 0;
-                } else if((int)now < (int)answer.getFirst()){
+                } else if ((int) now < (int) answer.getFirst()) {
                     answer.addLast(now);
                 } else {
                     answer.add(maxIndex + 1, now);
@@ -30,7 +30,7 @@ public class CodeJam2016_round_1A_TheLastWord {
                 }
             }
             String finalAns = "";
-            for(char x : answer) {
+            for (char x : answer) {
                 finalAns += x;
             }
             out.println("Case #" + (i + 1) + ": " + finalAns);

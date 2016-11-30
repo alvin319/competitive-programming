@@ -14,9 +14,9 @@ public class UVa_11172_RelationalOperators {
         for (int i = 0; i < count; i++) {
             long first = input.nextLong();
             long second = input.nextLong();
-            if(first > second) {
+            if (first > second) {
                 out.println(">");
-            } else if(first < second) {
+            } else if (first < second) {
                 out.println("<");
             } else {
                 out.println("=");

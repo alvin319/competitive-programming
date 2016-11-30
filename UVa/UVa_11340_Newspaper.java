@@ -30,7 +30,7 @@ public class UVa_11340_Newspaper {
                     totalCost += map.containsKey(currentChar) ? map.get(currentChar) : 0;
                 }
             }
-            out.printf(Locale.ENGLISH, "%.2f$%n", (double)totalCost / 100.0);
+            out.printf(Locale.ENGLISH, "%.2f$%n", (double) totalCost / 100.0);
         }
         out.close();
     }

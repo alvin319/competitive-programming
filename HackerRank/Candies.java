@@ -23,13 +23,13 @@ public class Candies {
         }
 
         for (int i = 1; i < leftCandies.length; i++) {
-            if(array[i] > array[i - 1]) {
+            if (array[i] > array[i - 1]) {
                 leftCandies[i] = leftCandies[i - 1] + 1;
             }
         }
 
         for (int i = rightCandies.length - 2; i >= 0; i--) {
-            if(array[i] > array[i + 1]) {
+            if (array[i] > array[i + 1]) {
                 rightCandies[i] = rightCandies[i + 1] + 1;
             }
         }

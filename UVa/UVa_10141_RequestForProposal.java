@@ -13,7 +13,7 @@ public class UVa_10141_RequestForProposal {
         int n = input.nextInt();
         int p = input.nextInt();
         int caseNum = 1;
-        while(n != 0 && p != 0) {
+        while (n != 0 && p != 0) {
             for (int i = 0; i < n; i++) {
                 input.nextLine();
             }
@@ -27,19 +27,19 @@ public class UVa_10141_RequestForProposal {
                 for (int j = 0; j < currentReq; j++) {
                     input.nextLine();
                 }
-                if(currentReq > bestReqCount) {
+                if (currentReq > bestReqCount) {
                     bestBrand = currentBrand;
                     bestCost = currentCost;
                     bestReqCount = currentReq;
-                } else if(currentReq == bestReqCount) {
-                    if(bestCost > currentCost) {
+                } else if (currentReq == bestReqCount) {
+                    if (bestCost > currentCost) {
                         bestCost = currentCost;
                         bestBrand = currentBrand;
                         bestReqCount = currentReq;
                     }
                 }
             }
-            if(caseNum == 1) {
+            if (caseNum == 1) {
                 out.println("RFP #" + caseNum);
                 out.println(bestBrand);
             } else {

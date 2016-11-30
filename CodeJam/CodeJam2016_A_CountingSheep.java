@@ -15,19 +15,19 @@ public class CodeJam2016_A_CountingSheep {
             String convert = starting + "";
             HashSet<Integer> seen = new HashSet<>();
             for (int j = 0; j < convert.length(); j++) {
-                seen.add((int)convert.charAt(j));
+                seen.add((int) convert.charAt(j));
             }
             int factor = 2;
-            while(seen.size() < 10) {
+            while (seen.size() < 10) {
                 String newConvert = (starting * factor) + "";
                 for (int j = 0; j < newConvert.length(); j++) {
-                    seen.add((int)newConvert.charAt(j));
+                    seen.add((int) newConvert.charAt(j));
                 }
-                if((starting * factor) == starting) {
-                    System.out.println("Case #" + (i+1) + ": INSOMNIA");
+                if ((starting * factor) == starting) {
+                    System.out.println("Case #" + (i + 1) + ": INSOMNIA");
                     break;
-                } else if(seen.size() >= 10) {
-                    System.out.println("Case #" + (i+1) + ": " + (starting * factor));
+                } else if (seen.size() >= 10) {
+                    System.out.println("Case #" + (i + 1) + ": " + (starting * factor));
                     break;
                 }
                 factor++;

@@ -89,7 +89,7 @@ public class BellmanFord {
         }
 
         public String toString() {
-            return ""+src;
+            return "" + src;
         }
     }
 

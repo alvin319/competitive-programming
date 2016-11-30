@@ -10,7 +10,7 @@ public class UVa_11559_EventPlanning {
         String current;
         while (true) {
             current = input.readLine();
-            if(current==null || current.isEmpty()) {
+            if (current == null || current.isEmpty()) {
                 break;
             }
             String[] array = current.split(" ");
@@ -30,14 +30,14 @@ public class UVa_11559_EventPlanning {
             for (Hotel x : hotel_list) {
                 int[] size = x.size;
                 for (int i = 0; i < size.length; i++) {
-                    if(size[i] >= participant) {
-                        if((participant * x.cost) <= budget) {
+                    if (size[i] >= participant) {
+                        if ((participant * x.cost) <= budget) {
                             cheapest = Math.min(cheapest, participant * x.cost);
                         }
                     }
                 }
             }
-            if(cheapest == Integer.MAX_VALUE) {
+            if (cheapest == Integer.MAX_VALUE) {
                 System.out.println("stay home");
             } else {
                 System.out.println(cheapest);

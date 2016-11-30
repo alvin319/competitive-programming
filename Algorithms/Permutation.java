@@ -8,7 +8,7 @@ public class Permutation {
     public static void main(String[] args) {
         String testCase = "abc";
         ArrayList<Character> testSet = new ArrayList<>();
-        for(Character x : testCase.toCharArray()) {
+        for (Character x : testCase.toCharArray()) {
             testSet.add(x);
         }
         System.out.println("Combination");
@@ -16,14 +16,14 @@ public class Permutation {
         System.out.println("Permutation");
         getPermutation(testSet, "");
 
-        String[][] matrix = {{"a","b","c"}, {"a","b","c"}, {"a", "b", "c"}};
+        String[][] matrix = {{"a", "b", "c"}, {"a", "b", "c"}, {"a", "b", "c"}};
         System.out.println("Google Permutation");
         googlePermutation(matrix, "", 0);
     }
 
     public static void getPermutation(ArrayList<Character> current, String prefix) {
-        if(current.size() == 0) {
-          System.out.println(prefix);
+        if (current.size() == 0) {
+            System.out.println(prefix);
         } else {
             for (int i = 0; i < current.size(); i++) {
                 String newString = prefix + current.get(i);
@@ -35,7 +35,7 @@ public class Permutation {
     }
 
     public static void getCombination(ArrayList<Character> current, String prefix, int index) {
-        if(index == current.size()) {
+        if (index == current.size()) {
             System.out.println(prefix);
         } else {
             String newString = prefix;

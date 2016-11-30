@@ -34,7 +34,7 @@ public class CodeJam2016_round_1A_RankAndFile {
                 }
             }
             Collections.sort(list);
-            out.print("Case #" + (i+1) + ": " + list.get(0));
+            out.print("Case #" + (i + 1) + ": " + list.get(0));
             for (int j = 1; j < list.size(); j++) {
                 out.print(" " + list.get(j));
             }

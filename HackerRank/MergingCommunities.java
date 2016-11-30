@@ -22,7 +22,8 @@ public class MergingCommunities {
             switch (info[0]) {
                 case "Q": {
                     out.println(s.getComm(Integer.parseInt(info[1])));
-                } break;
+                }
+                break;
                 default: {
                     s.unionSet(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
                 }

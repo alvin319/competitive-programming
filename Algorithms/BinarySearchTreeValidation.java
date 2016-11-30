@@ -13,10 +13,11 @@ public class BinarySearchTreeValidation {
 
     boolean checkBST(Node root) {
         set.add(root.data);
-        return helper(root.left, Integer.MIN_VALUE, root.data) && helper(root.right, root.data, Integer.MAX_VALUE);
+        return BSTHelper(root.left, Integer.MIN_VALUE, root.data) && BSTHelper(root.right, root.data, Integer.MAX_VALUE);
     }
 
-    public static boolean helper(Node currentNode, int min, int max) {
+
+    public static boolean BSTHelper(Node currentNode, int min, int max) {
         if (currentNode != null) {
             if (set.contains(currentNode.data)) {
                 return false;
@@ -24,7 +25,7 @@ public class BinarySearchTreeValidation {
                 set.add(currentNode.data);
             }
             return currentNode.data > min && currentNode.data < max &&
-                    helper(currentNode.left, min, currentNode.data) && helper(currentNode.right, currentNode.data, max);
+                    BSTHelper(currentNode.left, min, currentNode.data) && BSTHelper(currentNode.right, currentNode.data, max);
         }
         return true;
     }

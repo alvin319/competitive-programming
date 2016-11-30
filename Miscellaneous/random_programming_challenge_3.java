@@ -12,10 +12,10 @@ public class random_programming_challenge_3 {
         String original = input.nextLine();
         int splitCount = input.nextInt();
         ArrayList<String> sortList = new ArrayList<String>();
-        for(int i=0; i<original.length()-2; i++) {
-            sortList.add(original.substring(i,i+splitCount));
+        for (int i = 0; i < original.length() - 2; i++) {
+            sortList.add(original.substring(i, i + splitCount));
         }
         Collections.sort(sortList);
-        System.out.println(sortList.get(0)+" is smallest among them and "+sortList.get(sortList.size()-1)+" is largest.");
+        System.out.println(sortList.get(0) + " is smallest among them and " + sortList.get(sortList.size() - 1) + " is largest.");
     }
 }

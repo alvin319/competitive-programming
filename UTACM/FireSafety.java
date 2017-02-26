@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-public class FireSaftey {
+public class FireSafety {
 
     public static void main(String[] args) {
         FScanner input = new FScanner();

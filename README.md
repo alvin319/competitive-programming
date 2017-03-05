@@ -2,19 +2,19 @@
 
 Problem Cateogires
 - Codeforces
-- Texas UIL
-- UT Austin ACM Contests
+- UT Austin ACM
 - HackerRank
 - Google CodeJam
 - USACO
 - UVa Online Judge
-- SPOJ
+- LeetCode
+- TopCoder
 - Miscellaneous Problem
 
 Languages
 - Java
 - C++
-- Python
+- Python 2/3
 
 # Big O Analysis
 | Complexity           | Maximum Input Size | Comments                         |

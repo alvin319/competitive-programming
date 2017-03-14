@@ -1,5 +1,6 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 /**
@@ -11,18 +12,18 @@ public class Codeforces_Educational_round_18_NewBusRoute {
         FScanner input = new FScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
         int n = input.nextInt();
-        int[] array = new int[n];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = input.nextInt();
+        ArrayList<Integer> array = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            array.add(input.nextInt());
         }
-        Arrays.sort(array);
-        if (array.length == 2) {
-            out.println(Math.abs(array[0] - array[1]) + " " + 1);
+        Collections.sort(array);
+        if (array.size() == 2) {
+            out.println(Math.abs(array.get(0) - array.get(1)) + " " + 1);
         } else {
             int min = Integer.MAX_VALUE;
             int count = 0;
-            for (int i = 0; i < array.length - 1; i++) {
-                int after = Math.abs(array[i] - array[i + 1]);
+            for (int i = 0; i < array.size() - 1; i++) {
+                int after = Math.abs(array.get(i) - array.get(i + 1));
                 if (after < min) {
                     min = after;
                     count = 1;

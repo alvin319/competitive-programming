@@ -14,11 +14,13 @@ public class Codeforces_round_406_div_2_TheMonster {
         int b = input.nextInt();
         int c = input.nextInt();
         int d = input.nextInt();
-        for (int i = 1; i <= a; i++) {
-            int result = (b + (i * a) - d) % c;
-            if (result == 0) {
-                out.println(b + (i * a));
-                System.exit(0);
+        for (long i = 0; i <= 10000000; i++) {
+            if ((b + (i * a) - d) >= 0) {
+                long result = (b + (i * a) - d) % c;
+                if (result == 0) {
+                    out.println(b + (i * a));
+                    System.exit(0);
+                }
             }
         }
         out.println(-1);

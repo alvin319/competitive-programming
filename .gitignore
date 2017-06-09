@@ -1,5 +1,6 @@
 .idea/
-out/
+**/out/
+**/output/
 **/.DS_Store
 **/*.in
 **/*.out

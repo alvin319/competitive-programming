@@ -1,16 +1,16 @@
-n, m = map(int, input().split(' '))
-
+n, m = map(int, input().split())
 ans = []
+for x in range(1, n):
+	if (n - x) % m == 0:
+		z = (n - x) / m
+		y = n - (2 * x)
+		if x >= 0 and y >= 0:
+			ans.append(x + y)
 
-def recursion(steps, current_moves, multi_moves):
-	if current_moves % multi_moves == 0 and steps == 0:
-		ans.append(current_moves)
-	elif steps > 0:
-		recursion(steps - 1, current_moves + 1, multi_moves)
-		recursion(steps - 2, current_moves + 1, multi_moves)
-
-recursion(n, 0, m)
 if len(ans) == 0:
-	print(-1)
+	if n < m:
+		print(-1)
+	else:
+		print(n)
 else:
 	print(min(ans))

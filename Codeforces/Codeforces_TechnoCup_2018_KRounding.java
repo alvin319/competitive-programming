@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 
@@ -11,6 +13,10 @@ public class Codeforces_TechnoCup_2018_KRounding {
         long answer = Math.abs(n * (long) Math.pow(10, k)) / gcd(n, (long)Math.pow(10, k));
         out.println(answer);
         out.close();
+        Iterator test = new LinkedList<>().iterator();
+        while (!test.hasNext()) {
+            test.remove();
+        }
     }
 
     static long gcd(long a, long b) {

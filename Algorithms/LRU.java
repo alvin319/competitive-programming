@@ -18,7 +18,7 @@ public class LRU {
 //        cache.set(1, 1);
 //        cache.set(4, 4);
 //        cache.set(5, 5);
-//        Node currentNode = cache.head;
+//        Node currentNode = cache.currentHead;
 //        while (currentNode != null) {
 //            out.println(currentNode.value);
 //            currentNode = currentNode.next;
@@ -32,10 +32,10 @@ public class LRU {
 //        cache.set(5, 28);
 //        cache.set(6, 21);
 //        cache.set(7, 24);
-//        out.println("capacity: " + cache.capacity);
+//        out.println("currentCapacity: " + cache.currentCapacity);
 //        out.println("1: " + cache.get(1));
 //        out.println("7: " + cache.get(7));
-//        out.println("head : " + cache.head.value);
+//        out.println("currentHead : " + cache.currentHead.value);
         int n = input.nextInt();
         LRUCache cache = new LRUCache(9);
         for (int i = 0; i < n; i++) {
@@ -72,22 +72,22 @@ public class LRU {
 
     static class LRUCache {
         HashMap<Integer, Node> map;
-        Node head;
-        Node tail;
-        int capacity;
+        Node currentHead;
+        Node currentTail;
+        int currentCapacity;
 
         public LRUCache(int currentCapacity) {
             map = new HashMap<>();
-            head = null;
-            tail = null;
-            capacity = currentCapacity;
+            currentHead = null;
+            currentTail = null;
+            this.currentCapacity = currentCapacity;
         }
 
         public String toString() {
-            Node currentNode = head;
+            Node currentNode = currentHead;
             StringBuilder builder = new StringBuilder();
             while (currentNode != null) {
-                builder.append(!builder.toString().equals("") ? " " + currentNode.value : currentNode.value);
+                builder.append(builder.toString().equals("") ? currentNode.value : " " + currentNode.value);
                 currentNode = currentNode.next;
             }
             return builder.toString();
@@ -96,8 +96,8 @@ public class LRU {
         public int get(int key) {
             if (map.containsKey(key)) {
                 Node currentNode = map.get(key);
-                remove(currentNode);
-                setHead(currentNode);
+                removeNode(currentNode);
+                setHeadNode(currentNode);
                 return currentNode.value;
             } else {
                 return -1;
@@ -108,52 +108,50 @@ public class LRU {
             if (map.containsKey(key)) {
                 Node currentNode = map.get(key);
                 currentNode.value = value;
-                remove(currentNode);
-                setHead(currentNode);
+                removeNode(currentNode);
+                setHeadNode(currentNode);
                 map.put(key, currentNode);
             } else {
-                if (capacity == map.keySet().size()) {
-                    int tailKey = tail.key;
-                    remove(tail);
+                if (currentCapacity == map.keySet().size()) {
+                    int tailKey = currentTail.key;
+                    removeNode(currentTail);
                     map.remove(tailKey);
                 }
-                if (capacity > map.keySet().size()) {
+                if (currentCapacity > map.keySet().size()) {
                     Node newNode = new Node(key, value);
-                    setHead(newNode);
+                    setHeadNode(newNode);
                     map.put(key, newNode);
                 }
             }
         }
 
-        private void remove(Node node) {
-            if (node.previous != null && node.next != null) {
+        private void removeNode(Node node) {
+            if (node.previous != null && node.next != null) { // Node is in between 2 nodes
                 node.previous.next = node.next;
                 node.next.previous = node.previous;
-            } else if (node.previous == null) {
-                head = node.next;
-                if (head != null) {
-                    head.previous = null;
+            } else if (node.previous == null) { // Head
+                currentHead = node.next;
+                if (currentHead != null) {
+                    currentHead.previous = null;
                 }
-            } else {
-                tail = node.previous;
-                if (tail != null) {
-                    tail.next = null;
-                }
+            } else { // Tail
+                currentTail = node.previous;
+                currentTail.next = null;
             }
         }
 
-        private void setHead(Node node) {
-            if (head == null) {
-                head = node;
-            } else {
-                Node previousHead = head;
-                head = node;
-                previousHead.previous = head;
-                head.next = previousHead;
-                head.previous = null;
+        private void setHeadNode(Node node) {
+            if (currentHead == null) { // No currentHead node, proceed to set the node to be the currentHead
+                currentHead = node;
+            } else { // Head node exists, proceed to move it to the next node
+                Node previousHead = currentHead;
+                currentHead = node;
+                previousHead.previous = currentHead;
+                currentHead.next = previousHead;
+                currentHead.previous = null;
             }
-            if (tail == null) {
-                tail = node;
+            if (currentTail == null) { // If the currentTail node doesn't exist, then the node should be currentTail as well
+                currentTail = node;
             }
         }
     }

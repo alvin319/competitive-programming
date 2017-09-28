@@ -32,36 +32,38 @@ public class KahnsTopological {
         int incomingEdges[] = new int[adj.length];
 
         for (int i = 0; i < adj.length; i++) {
-            ArrayList<Integer> temp = (ArrayList<Integer>) adj[i];
-            for (int node : temp) {
-                incomingEdges[node]++;
+            ArrayList<Integer> neighbors = (ArrayList<Integer>) adj[i];
+            for (int toNode : neighbors) {
+                incomingEdges[toNode]++;
             }
         }
 
-        Queue<Integer> queue = new LinkedList<Integer>();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < vertexCount; i++) {
+            // Found the starting point
             if (incomingEdges[i] == 0) {
                 queue.add(i);
             }
         }
 
-        int visited = 0;
-        ArrayList<Integer> topologicalOrder = new ArrayList<Integer>();
+        int visitedNodeCount = 0;
+        ArrayList<Integer> topologicalOrder = new ArrayList<>();
+
         while (!queue.isEmpty()) {
             int startNode = queue.poll();
             topologicalOrder.add(startNode);
 
-            for (int node : adj[startNode]) {
-                incomingEdges[node]--;
-                if (incomingEdges[node] == 0) {
-                    queue.add(node);
+            for (int toNode : adj[startNode]) {
+                incomingEdges[toNode]--;
+                if (incomingEdges[toNode] == 0) {
+                    queue.add(toNode);
                 }
             }
 
-            visited++;
+            visitedNodeCount++;
         }
 
-        if (visited != vertexCount) {
+        if (visitedNodeCount != vertexCount) {
             System.out.println("There exists a cycle in the graph");
             return null;
         }

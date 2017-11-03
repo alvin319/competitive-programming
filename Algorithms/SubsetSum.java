@@ -9,7 +9,7 @@ public class SubsetSum {
         System.out.println(subsetSum1D(array, sum));
     }
 
-    public static boolean subsetSum(int[] array, int sum, int items) {
+    private static boolean subsetSum(int[] array, int sum, int items) {
         boolean[][] subsetMatrix = new boolean[items + 1][sum + 1];
         for (int i = 0; i <= items; i++) {
             subsetMatrix[i][0] = true;
@@ -26,7 +26,7 @@ public class SubsetSum {
         return subsetMatrix[items][sum];
     }
 
-    public static boolean subsetSum1D(int[] array, int target) {
+    private static boolean subsetSum1D(int[] array, int target) {
         boolean[] subset = new boolean[target + 1];
         subset[0] = true; // Empty set satisfies 0
         for (int i = 1; i <= array.length; i++) {

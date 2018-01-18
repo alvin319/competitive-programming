@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -28,6 +26,16 @@ public class Codeforces_round_147_div_2_FreeCash {
         }
         out.println(best);
         out.close();
+    }
+
+    static class Pair {
+        int x;
+        int y;
+
+        public Pair (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
 

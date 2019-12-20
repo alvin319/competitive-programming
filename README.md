@@ -1,6 +1,6 @@
 # Competitive Programming
 
-Problem Cateogires
+Problem Categories
 - Codeforces
 - UT Austin ACM
 - HackerRank
@@ -9,7 +9,6 @@ Problem Cateogires
 - UVa Online Judge
 - LeetCode
 - TopCoder
-- Miscellaneous Problem
 
 Languages
 - Java
